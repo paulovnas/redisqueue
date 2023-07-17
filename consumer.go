@@ -56,13 +56,8 @@ type ConsumerOptions struct {
 	// RedisClient supersedes the RedisOptions field, and allows you to inject
 	// an already-made Redis Client for use in the consumer. This may be either
 	// the standard client or a cluster client.
-	RedisClient redis.UniversalClient
-	// RedisOptions allows you to configure the underlying Redis connection.
-	// More info here:
-	// https://pkg.go.dev/github.com/go-redis/redis/v7?tab=doc#Options.
-	//
-	// This field is used if RedisClient field is nil.
-	RedisOptions *RedisOptions
+	RedisClient redis.Client
+	// RedisClient now is required
 }
 
 // Consumer adds a convenient wrapper around dequeuing and managing concurrency.
@@ -76,7 +71,7 @@ type Consumer struct {
 	Errors chan error
 
 	options   *ConsumerOptions
-	redis     redis.UniversalClient
+	redis     *redis.Client
 	consumers map[string]registeredConsumer
 	streams   []string
 	queue     chan *Message
@@ -123,23 +118,11 @@ func NewConsumerWithOptions(options *ConsumerOptions) (*Consumer, error) {
 		options.ReclaimInterval = 1 * time.Second
 	}
 
-	var r redis.UniversalClient
-
-	if options.RedisClient != nil {
-		r = options.RedisClient
-	} else {
-		r = newRedisClient(options.RedisOptions)
-	}
-
-	if err := redisPreflightChecks(r); err != nil {
-		return nil, err
-	}
-
 	return &Consumer{
 		Errors: make(chan error),
 
 		options:   options,
-		redis:     r,
+		redis:     &options.RedisClient,
 		consumers: make(map[string]registeredConsumer),
 		streams:   make([]string, 0),
 		queue:     make(chan *Message, options.BufferSize),
