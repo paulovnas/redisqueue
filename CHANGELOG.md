@@ -1,4 +1,12 @@
 
+<a name="v3.0.0"></a>
+## [v3.0.0](https://github.com/robinjoseph08/go-pg-migrations/compare/v2.1.0...v3.0.0) (2023-07-17)
+
+### Features
+
+* **redis:** update of redis.UniversalClient to redis.Client
+* **base:** update libs requireds
+
 <a name="v2.1.0"></a>
 ## [v2.1.0](https://github.com/robinjoseph08/go-pg-migrations/compare/v2.0.0...v2.1.0) (2020-10-15)
 

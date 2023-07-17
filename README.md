@@ -1,10 +1,7 @@
 # redisqueue
 
-![Version](https://img.shields.io/badge/version-v2.1.0-green.svg)
-[![GoDoc](https://godoc.org/github.com/robinjoseph08/redisqueue?status.svg)](https://pkg.go.dev/github.com/robinjoseph08/redisqueue/v2?tab=doc)
-[![Build Status](https://travis-ci.org/robinjoseph08/redisqueue.svg?branch=master)](https://travis-ci.org/robinjoseph08/redisqueue)
-[![Coverage Status](https://coveralls.io/repos/github/robinjoseph08/redisqueue/badge.svg?branch=master)](https://coveralls.io/github/robinjoseph08/redisqueue?branch=master)
-[![Go Report Card](https://goreportcard.com/badge/github.com/robinjoseph08/redisqueue)](https://goreportcard.com/report/github.com/robinjoseph08/redisqueue)
+![Version](https://img.shields.io/badge/version-v3.0.0-green.svg)
+[![GoDoc](https://godoc.org/github.com/robinjoseph08/redisqueue?status.svg)](https://pkg.go.dev/github.com/paulovnas/redisqueue/v3?tab=doc)
 ![License](https://img.shields.io/github/license/robinjoseph08/redisqueue.svg)
 
 `redisqueue` provides a producer and consumer of a queue that uses [Redis
@@ -38,13 +35,13 @@ versioning. So please make sure to initialize a Go module before installing
 
 ```sh
 go mod init github.com/my/repo
-go get github.com/robinjoseph08/redisqueue/v2
+go get github.com/paulovnas/redisqueue/v3
 ```
 
 Import:
 
 ```go
-import "github.com/robinjoseph08/redisqueue/v2"
+import "github.com/paulovnas/redisqueue/v3"
 ```
 
 ## Example
@@ -57,7 +54,7 @@ package main
 import (
 	"fmt"
 
-	"github.com/robinjoseph08/redisqueue/v2"
+	"github.com/paulovnas/redisqueue/v3"
 )
 
 func main() {
@@ -96,7 +93,7 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/robinjoseph08/redisqueue/v2"
+	"github.com/paulovnas/redisqueue/v3"
 )
 
 func main() {

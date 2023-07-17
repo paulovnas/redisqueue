@@ -1,4 +1,4 @@
-module github.com/go-admin-team/redisqueue/v3
+module github.com/paulovnas/redisqueue/v3
 
 go 1.12
 
