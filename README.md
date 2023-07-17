@@ -1,6 +1,6 @@
 # redisqueue
 
-![Version](https://img.shields.io/badge/version-v3.0.0-green.svg)
+![Version](https://img.shields.io/badge/version-v3.0.1-green.svg)
 [![GoDoc](https://godoc.org/github.com/robinjoseph08/redisqueue?status.svg)](https://pkg.go.dev/github.com/paulovnas/redisqueue/v3?tab=doc)
 ![License](https://img.shields.io/github/license/robinjoseph08/redisqueue.svg)
 
