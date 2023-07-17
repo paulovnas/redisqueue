@@ -58,6 +58,8 @@ type ConsumerOptions struct {
 	// the standard client or a cluster client.
 	RedisClient redis.Client
 	// RedisClient now is required
+	DeleteThanAck bool
+	// DeleteThanAck Defines the method in which the queue item will be marked as read or deleted
 }
 
 // Consumer adds a convenient wrapper around dequeuing and managing concurrency.
@@ -88,6 +90,7 @@ var defaultConsumerOptions = &ConsumerOptions{
 	ReclaimInterval:   1 * time.Second,
 	BufferSize:        100,
 	Concurrency:       10,
+	DeleteThanAck:     false,
 }
 
 // NewConsumer uses a default set of options to create a Consumer. It sets Name
@@ -373,7 +376,12 @@ func (c *Consumer) work() {
 				c.Errors <- errors.Wrapf(err, "error calling ConsumerFunc for %q stream and %q message", msg.Stream, msg.ID)
 				continue
 			}
-			err = c.redis.XAck(context.TODO(), msg.Stream, c.options.GroupName, msg.ID).Err()
+			if c.options.DeleteThanAck {
+				err = c.redis.XDel(context.TODO(), msg.Stream, c.options.GroupName, msg.ID).Err()
+			} else {
+				err = c.redis.XAck(context.TODO(), msg.Stream, c.options.GroupName, msg.ID).Err()
+			}
+
 			if err != nil {
 				c.Errors <- errors.Wrapf(err, "error acknowledging after success for %q stream and %q message", msg.Stream, msg.ID)
 				continue
